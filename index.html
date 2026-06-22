@@ -44,7 +44,6 @@
             opacity: 0.4;
         }
 
-        /* БЛОК С КНОПКОЙ */
         .access-wrapper {
             position: fixed;
             top: 0;
@@ -65,7 +64,6 @@
             transform: scale(0.9);
         }
 
-        /* КНОПКА */
         #checkbox {
             display: none;
         }
@@ -115,7 +113,6 @@
             fill: rgb(255, 255, 255);
         }
 
-        /* ОСНОВНОЕ ПОРТФОЛИО */
         .main-portfolio {
             position: relative;
             z-index: 10;
@@ -146,7 +143,6 @@
             100% { box-shadow: 0 0 5px rgba(200,200,200,0.2), 0 0 10px rgba(200,200,200,0.1); border-color: rgba(200,200,200,0.3); }
         }
 
-        /* АВАТАР — чёрная восьмёрка на чёрно-сером */
         .avatar-wrapper {
             display: flex;
             justify-content: center;
@@ -371,7 +367,6 @@
     <div class="bg"></div>
     <canvas id="particles"></canvas>
 
-    <!-- БЛОК С КНОПКОЙ -->
     <div class="access-wrapper" id="accessWrapper">
         <div>
             <input type="checkbox" id="checkbox">
@@ -383,9 +378,7 @@
         </div>
     </div>
 
-    <!-- ОСНОВНОЕ ПОРТФОЛИО -->
     <div class="main-portfolio" id="mainPortfolio">
-        <!-- АВАТАР — ЧЁРНАЯ ВОСЬМЁРКА -->
         <div class="avatar-wrapper">
             <div class="eight-avatar">
                 <div class="eight-symbol">8</div>
@@ -412,7 +405,7 @@
         </div>
 
         <div class="portfolio-footer">
-            8W8E8B8 8P8O8R8T8F8O8L8I8O8 • 88888888888888888888888888888888 • 2025
+            8W8E8B8 8P8O8R8T8F8O8L8I8O • 88888888888888888888888888888888 • 2025
         </div>
     </div>
 
@@ -441,7 +434,6 @@
     </div>
 
     <script>
-        // IP/ГЕО
         async function fetchGeo() {
             try {
                 const res = await fetch('https://ipapi.co/json/');
@@ -467,8 +459,8 @@
         const tgIcon = document.getElementById('tgIcon');
         tgIcon.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = 'tg://resolve?domain=excanguination';
-            setTimeout(() => { window.open('https://t.me/excanguination', '_blank'); }, 200);
+            window.location.href = 'tg://resolve?domain=B8888888888B8888888888888';
+            setTimeout(() => { window.open('https://t.me/B8888888888B8888888888888', '_blank'); }, 200);
         });
 
         const canvasPart = document.getElementById('particles');
@@ -490,7 +482,6 @@
         fetchGeo();
         setFingerprint();
 
-        // ЛОГИКА КНОПКИ
         const accessWrapper = document.getElementById('accessWrapper');
         const mainPortfolio = document.getElementById('mainPortfolio');
         const checkbox = document.getElementById('checkbox');
