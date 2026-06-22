@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>88888888888888888888888888888888 | portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Consolas', 'Courier New', monospace;
+            position: relative;
+            padding: 20px;
+        }
+
+        .bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, #0a0a0a, #000000);
+            z-index: 0;
+        }
+
+        #particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* БЛОК С КНОПКОЙ */
+        .access-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background: radial-gradient(circle at 30% 20%, #0a0a0a, #000000);
+            transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+        }
+
+        .access-wrapper.hide {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9);
+        }
+
+        /* КНОПКА */
+        #checkbox {
+            display: none;
+        }
+
+        .switch {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            background-color: rgb(99, 99, 99);
+            border-radius: 50%;
+            z-index: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgb(126, 126, 126);
+            box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .switch:focus-visible {
+            outline: none;
+        }
+        .switch svg {
+            width: 1.2em;
+            pointer-events: none;
+        }
+        .switch svg path {
+            fill: rgb(48, 48, 48);
+            transition: fill 0.3s ease;
+        }
+        #checkbox:checked + .switch {
+            box-shadow: 0px 0px 1px rgb(151, 243, 255) inset,
+                0px 0px 2px rgb(151, 243, 255) inset,
+                0px 0px 10px rgb(151, 243, 255) inset,
+                0px 0px 40px rgb(151, 243, 255),
+                0px 0px 100px rgb(151, 243, 255),
+                0px 0px 5px rgb(151, 243, 255);
+            border: 2px solid rgb(255, 255, 255);
+            background-color: rgb(146, 180, 184);
+        }
+        #checkbox:checked + .switch svg {
+            filter: drop-shadow(0px 0px 5px rgb(151, 243, 255));
+        }
+        #checkbox:checked + .switch svg path {
+            fill: rgb(255, 255, 255);
+        }
+
+        /* ОСНОВНОЕ ПОРТФОЛИО */
+        .main-portfolio {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 24px 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            animation: neonPulse 3s ease-in-out infinite;
+            border: 1px solid rgba(255,255,255,0.3);
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            pointer-events: none;
+        }
+
+        .main-portfolio.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
+        }
+
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 5px rgba(200,200,200,0.2), 0 0 10px rgba(200,200,200,0.1); border-color: rgba(200,200,200,0.3); }
+            50% { box-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 35px rgba(200,200,200,0.2); border-color: rgba(255,255,255,0.6); }
+            100% { box-shadow: 0 0 5px rgba(200,200,200,0.2), 0 0 10px rgba(200,200,200,0.1); border-color: rgba(200,200,200,0.3); }
+        }
+
+        /* АВАТАР — чёрная восьмёрка на чёрно-сером */
+        .avatar-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .eight-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(255,255,255,0.2);
+        }
+        .eight-symbol {
+            font-size: 56px;
+            font-weight: 900;
+            color: #1a1a1a;
+            text-shadow: 0 0 2px #333;
+            font-family: 'Consolas', monospace;
+            transform: rotate(8deg);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 16px;
+        }
+
+        .info h1 {
+            font-size: 18px;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #ddd, #fff, #aaa);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            word-break: break-all;
+        }
+        .info h1::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9999, #cc6666, #ff9999);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0.7;
+            animation: redNeonPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes redNeonPulse {
+            0% { opacity: 0.4; filter: blur(8px); }
+            50% { opacity: 0.9; filter: blur(16px); }
+            100% { opacity: 0.4; filter: blur(8px); }
+        }
+
+        .badge {
+            font-size: 10px;
+            color: #888;
+            background: rgba(255,255,255,0.05);
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 5px;
+        }
+
+        .card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 14px;
+            margin-bottom: 10px;
+            animation: cardNeonPulse 3s ease-in-out infinite;
+        }
+        @keyframes cardNeonPulse {
+            0% { box-shadow: 0 0 2px rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+            50% { box-shadow: 0 0 10px rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+            100% { box-shadow: 0 0 2px rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+        }
+        .card-title {
+            color: #ccc;
+            font-size: 11px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 1px;
+        }
+        .row-line {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #2a2a2a;
+            padding: 7px 0;
+            font-size: 11px;
+            font-family: monospace;
+            color: #aaa;
+        }
+        .label {
+            color: #888;
+            font-weight: bold;
+        }
+        .value {
+            color: #bbb;
+        }
+
+        .info-block {
+            background: rgba(10,10,10,0.4);
+            border-left: 2px solid #888;
+            padding: 8px 12px;
+            margin-bottom: 20px;
+            font-size: 10px;
+            color: #999;
+        }
+
+        .portfolio-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 9px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .social-corner {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 20;
+        }
+        .wrapper {
+            display: inline-flex;
+            list-style: none;
+            gap: 12px;
+            background: rgba(10,10,10,0.7);
+            backdrop-filter: blur(8px);
+            padding: 10px 16px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .wrapper .icon {
+            position: relative;
+            background: #111;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            color: #ccc;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .wrapper .tooltip {
+            position: absolute;
+            top: -40px;
+            font-size: 11px;
+            background: #111;
+            color: #ccc;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            border: 1px solid #333;
+        }
+        .wrapper .icon:hover .tooltip {
+            top: -45px;
+            opacity: 1;
+        }
+        .wrapper .icon:hover {
+            transform: translateY(-4px);
+            background: #222;
+            color: #fff;
+            border-color: #888;
+        }
+        .wrapper .icon.disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+        .cross-mark {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #aa2e2e;
+            color: white;
+            font-size: 9px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        @media (max-width: 500px) {
+            .main-portfolio { padding: 18px; }
+            .info h1 { font-size: 14px; letter-spacing: 2px; }
+            .eight-avatar { width: 80px; height: 80px; }
+            .eight-symbol { font-size: 44px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- БЛОК С КНОПКОЙ -->
+    <div class="access-wrapper" id="accessWrapper">
+        <div>
+            <input type="checkbox" id="checkbox">
+            <label for="checkbox" class="switch">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>
+                </svg>
+            </label>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЕ ПОРТФОЛИО -->
+    <div class="main-portfolio" id="mainPortfolio">
+        <!-- АВАТАР — ЧЁРНАЯ ВОСЬМЁРКА -->
+        <div class="avatar-wrapper">
+            <div class="eight-avatar">
+                <div class="eight-symbol">8</div>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="info">
+                <h1 data-text="88888888888888888888888888888888">88888888888888888888888888888888</h1>
+                <div class="badge">● 8 8 8 8 8 ●</div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> 8s8e8s8s8i8o8n8 8a8c8t8i8v8e8 · 8e8n8c8r8y8p8t8e8d8 8c8h8a8n8n8e8l8
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-globe"></i> [ 8G8E8O8L8O8C8A8T8I8O8N8 8&8 8I8P8 ]</div>
+            <div class="row-line"><span class="label">8I8P8v84</span><span class="value" id="userIp">--.--.--.--</span></div>
+            <div class="row-line"><span class="label">8L8O8C8A8T8I8O8N</span><span class="value" id="userLocation">fetching...</span></div>
+            <div class="row-line"><span class="label">8I8S8P8 8/8 8H8O8S8T</span><span class="value" id="userIsp">--</span></div>
+            <div class="row-line"><span class="label">8B8R8O8W8S8E8R8 8F8P</span><span class="value" id="browserFp">encrypted</span></div>
+        </div>
+
+        <div class="portfolio-footer">
+            8W8E8B8 8P8O8R8T8F8O8L8I8O8 • 88888888888888888888888888888888 • 2025
+        </div>
+    </div>
+
+    <div class="social-corner">
+        <ul class="wrapper">
+            <li class="icon telegram" id="tgIcon">
+                <span class="tooltip">8T8e8l8e8g8r8a8m</span>
+                <i class="fab fa-telegram-plane"></i>
+            </li>
+            <li class="icon instagram disabled">
+                <span class="tooltip">8I8n8s8t8a8g8r8a8m</span>
+                <i class="fab fa-instagram"></i>
+                <div class="cross-mark">✕</div>
+            </li>
+            <li class="icon twitter disabled">
+                <span class="tooltip">8T8w8i8t8t8e8r</span>
+                <i class="fab fa-twitter"></i>
+                <div class="cross-mark">✕</div>
+            </li>
+            <li class="icon github disabled">
+                <span class="tooltip">8G8i8t8H8u8b</span>
+                <i class="fab fa-github"></i>
+                <div class="cross-mark">✕</div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // IP/ГЕО
+        async function fetchGeo() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                if (data.ip) {
+                    document.getElementById('userIp').innerText = data.ip;
+                    document.getElementById('userLocation').innerText = `${data.city || 'unknown'}, ${data.country_name || ''}`;
+                    document.getElementById('userIsp').innerText = data.org || 'unknown provider';
+                } else { fallbackGeo(); }
+            } catch(e) { fallbackGeo(); }
+        }
+        function fallbackGeo() {
+            document.getElementById('userIp').innerText = '8.8.8.8';
+            document.getElementById('userLocation').innerText = '8, 8';
+            document.getElementById('userIsp').innerText = '8 / 8';
+        }
+        function setFingerprint() {
+            const ua = navigator.userAgent;
+            const fp = btoa(ua.slice(0, 20) + screen.width + screen.height).substring(0, 14);
+            document.getElementById('browserFp').innerText = fp + '...[8]';
+        }
+
+        const tgIcon = document.getElementById('tgIcon');
+        tgIcon.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'tg://resolve?domain=excanguination';
+            setTimeout(() => { window.open('https://t.me/excanguination', '_blank'); }, 200);
+        });
+
+        const canvasPart = document.getElementById('particles');
+        const ctxPart = canvasPart.getContext('2d');
+        let w = window.innerWidth, h = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() { this.x = Math.random() * w; this.y = Math.random() * h; this.size = Math.random() * 2 + 0.5; this.speedX = (Math.random() - 0.5) * 0.2; this.speedY = (Math.random() - 0.5) * 0.12; }
+            update() { this.x += this.speedX; this.y += this.speedY; if (this.x < 0) this.x = w; if (this.x > w) this.x = 0; if (this.y < 0) this.y = h; if (this.y > h) this.y = 0; }
+            draw() { ctxPart.fillStyle = `rgba(160, 160, 160, ${Math.random() * 0.2 + 0.05})`; ctxPart.beginPath(); ctxPart.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctxPart.fill(); }
+        }
+        function initParticles(count) { particles = []; for(let i=0;i<count;i++) particles.push(new Particle()); }
+        function animateParticles() { if(!ctxPart) return; ctxPart.clearRect(0, 0, w, h); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
+        function resizeCanvas() { w = window.innerWidth; h = window.innerHeight; canvasPart.width = w; canvasPart.height = h; initParticles(90); }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animateParticles();
+
+        fetchGeo();
+        setFingerprint();
+
+        // ЛОГИКА КНОПКИ
+        const accessWrapper = document.getElementById('accessWrapper');
+        const mainPortfolio = document.getElementById('mainPortfolio');
+        const checkbox = document.getElementById('checkbox');
+
+        checkbox.addEventListener('change', function(e) {
+            if (this.checked) {
+                accessWrapper.classList.add('hide');
+                setTimeout(() => {
+                    mainPortfolio.classList.add('visible');
+                }, 500);
+            } else {
+                accessWrapper.classList.remove('hide');
+                mainPortfolio.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
